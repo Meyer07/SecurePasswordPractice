@@ -4,7 +4,8 @@ import socket
 import threading
 
 server=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-server.bind("localhost",9999)
+server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+server.bind(("localhost",9999))
 
 server.listen()
 
@@ -22,11 +23,11 @@ def handleConnection(c):
     cursor.execute("SELECT * FROM userdata WHERE username = ? AND password=?",(username,password))
 
     if(cursor.fetchall()):
-        c.send("Login Successful").encode()
+        c.send("Login Successful".encode())
     else:
-        c.send("Login not successful").encode()
+        c.send("Login not successful".encode())
 
 
 while True:
     client, address = server.accept()
-    threading.thread(target=handle_connection, args=(client,)).start()
+    threading.Thread(target=handleConnection, args=(client,)).start()
