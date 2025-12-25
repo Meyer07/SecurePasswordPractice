@@ -20,11 +20,6 @@ CREATE TABLE IF NOT EXISTS userdata(
 ##even simple passwords through it 
 username1, password1= "Sam123", hashlib.sha256("sampassword".encode()).hexdigest()
 
-
-print(username1)
-print(password1)
-
-
 cursor.execute("INSERT INTO userdata (username, password) VALUES(?,?)", (username1,password1))
 connect.commit()
 
