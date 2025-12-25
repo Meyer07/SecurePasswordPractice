@@ -4,7 +4,6 @@ import hashlib
 
 ##connects to the userdata database as initialized below
 connect=sqlite3.connect("userdata.db")
-
 cursor=connect.cursor()
 
 ##this SQL function creates a table of keys,usernames and passwords and gives the usernames and passwords
@@ -12,8 +11,8 @@ cursor=connect.cursor()
 cursor.execute("""               
 CREATE TABLE IF NOT EXISTS userdata(
         id INTEGER PRIMARY KEY,
-        username VAR CHAR(255) NOT NULL,
-        password VAR CHAR(255) NOT NULL
+        username VARCHAR(255) NOT NULL,
+        password VARCHAR(255) NOT NULL
 )             
 """)
 
@@ -26,16 +25,7 @@ print(username1)
 print(password1)
 
 
-while True:
-    username=input("Please enter a username: ")
-    password=input("Please enter a very secure password: ")
-
-    if(username.isalnum() and password.isalnum()):
-        break
-
-
-cursor.execute("INSERT INTO userdata (username, password) VALUES(?,?)", (username,password))
-
+cursor.execute("INSERT INTO userdata (username, password) VALUES(?,?)", (username1,password1))
 connect.commit()
 
 
